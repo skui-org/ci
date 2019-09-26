@@ -1,2 +1,3 @@
-# ci
-CI setup for skui projects
+# SkUI CI repository
+
+This repository contains the CI related files for SkUI projects.
