@@ -2,18 +2,29 @@
 
 VERSION=${1}
 OS=${2}
+if [[ ${OS} == win64 ]]
+then
+  ARCH=x64
+  EXT=zip
+  EXTRACT='unzip -q'
+else
+  ARCH=x86_64
+  EXT=tar.gz
+  EXTRACT='tar -xf'
+fi
 
 MAJOR=`echo ${VERSION} | cut -d. -f1`
 MINOR=`echo ${VERSION} | cut -d. -f2`
 REVISION=`echo ${VERSION} | cut -d. -f3`
 
-wget https://github.com/Kitware/CMake/releases/download/v${MAJOR}.${MINOR}.${REVISION}/cmake-${VERSION}-${OS}-x86_64.tar.gz
-tar -xf cmake-${VERSION}-${OS}-x86_64.tar.gz
+FILE=cmake-${VERSION}-${OS}-${ARCH}.${EXT}
+wget https://github.com/Kitware/CMake/releases/download/v${MAJOR}.${MINOR}.${REVISION}/${FILE}
+${EXTRACT} ${FILE}
 if [[ ${OS} == Darwin ]]
 then
-  export PATH=${PWD}/cmake-${VERSION}-${OS}-x86_64/CMake.app/Contents/bin:${PATH}
+  export PATH=${PWD}/cmake-${VERSION}-${OS}-${ARCH}/CMake.app/Contents/bin:${PATH}
 else
-  export PATH=${PWD}/cmake-${VERSION}-${OS}-x86_64/bin:${PATH}
+  export PATH=${PWD}/cmake-${VERSION}-${OS}-${ARCH}/bin:${PATH}
 fi
 echo "Extracted CMake and set PATH=$PATH"
 cmake --version
