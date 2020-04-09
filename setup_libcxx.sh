@@ -8,7 +8,7 @@ MINOR=`echo ${VERSION} | cut -d. -f2`
 REVISION=`echo ${VERSION} | cut -d. -f3`
 
 case ${VERSION} in
-  7.1.0|8.0.1)
+  7.1.0|8.0.1|9.0.1|10.0.?)
     URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-
     ;;
   *)
